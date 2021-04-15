@@ -3,12 +3,7 @@ const Banda = require("./band");
 class BandList{
 
     constructor(){
-        this.bandas = [
-            new Banda('Metallica'),
-            new Banda('Heroes del silencio'),
-            new Banda('Bon Jovi'),
-            new Banda('Breaking Bnejamin'),
-        ]
+        this.bandas = []
     }
 
     addBanda(name){
@@ -22,7 +17,7 @@ class BandList{
         return this.bandas;
     }
 
-    getBandas(){
+    getBandas(){              
         return this.bandas;
     }
 

@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useState } from 'react'
+//import PropTypes from 'prop-types'
+import { SocketContext } from '../context/SocketContext';
 
-const BandAdd = ({addBanda}) => {
+const BandAdd = () => {
+
+    const {socket} = useContext(SocketContext)
     const [newBand, setNewBand] = useState('');
 
     const agregarBanda = (e) => {
         e.preventDefault();
         if(newBand.trim().length > 0){
-            addBanda(newBand);      
+            socket.emit('addBanda', newBand);     
             setNewBand('');
         }
     }
+
 
     return (
         <>
@@ -23,9 +27,9 @@ const BandAdd = ({addBanda}) => {
         </>
     )
 }
-
+/* 
 BandAdd.propTypes = {
 
-}
+} */
 
 export default BandAdd

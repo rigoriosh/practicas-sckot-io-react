@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useEffect, useState } from 'react'
+//import PropTypes from 'prop-types'
+import { SocketContext } from '../context/SocketContext';
 
-const BandList = ({data, votar, borrarBanda, changeNameBanda}) => {
+const BandList = () => {
 
-    const [bandas, setBandas] = useState(data);
+    const [bandas, setBandas] = useState([]);
+    const {socket} = useContext(SocketContext);
     
     useEffect(() => {
-        setBandas(data)
-    }, [data])
+        socket.on('bandas-actuales', (data) => {            
+          setBandas(data)
+        })
+
+        return () => socket.off('bandas-actuales');
+      }, [socket])
+    
     
     const cambioNameBanda = (id, newName) => {
         setBandas(bandas => bandas.map(band => {
@@ -16,11 +23,23 @@ const BandList = ({data, votar, borrarBanda, changeNameBanda}) => {
         }))
     }
 
-    const onPerdioFoco = (id, nombre) => {
-        console.log(id, nombre)
+    const onPerdioFoco = (id, newName) => {     
+        //console.log(newName)   
+        if (!!newName) {
+            socket.emit('changeNameBanda', {id, newName}); 
+            //console.log('changed')
+        }else{
+            //console.log('here')
+            socket.emit('getBandas');
+        }
+    }      
 
-        // TODO: disparar evento socket
-        changeNameBanda(id, nombre);
+    const votar = (id) => {    
+        socket.emit('votarBanda', id);
+    }
+
+    const borrarBanda = (id) => {    
+    socket.emit('removerBanda', id);
     }
 
     const crearRows = () => {
@@ -61,9 +80,9 @@ const BandList = ({data, votar, borrarBanda, changeNameBanda}) => {
         </>
     )
 }
-
+/* 
 BandList.propTypes = {
-    data: PropTypes.array.isRequired
-}
+
+} */
 
 export default BandList
