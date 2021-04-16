@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, InputNumber, Typography, Divider } from 'antd';
-import PropTypes from 'prop-types'
 import { SaveOutlined } from '@ant-design/icons';
 import { Redirect, useHistory } from 'react-router';
 import useHideMenu from '../hooks/useHideMenu';
@@ -92,14 +91,6 @@ const IngresarPage = () => {
     )
 }
 
-IngresarPage.propTypes = {
-
-}
 
 export default IngresarPage
-
-
-
-/////////////////
-
 

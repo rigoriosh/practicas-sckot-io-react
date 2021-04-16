@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
 
 import { Layout, Menu } from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, VideoCameraOutlined, UploadOutlined, } from '@ant-design/icons';
+import { UserOutlined, VideoCameraOutlined, UploadOutlined, } from '@ant-design/icons';
 
 import {
     BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
@@ -54,10 +53,6 @@ const RouterPage = () => {
             </Layout>
         </Router>
     )
-}
-
-RouterPage.propTypes = {
-
 }
 
 export default RouterPage

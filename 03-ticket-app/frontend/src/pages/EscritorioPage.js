@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Col, Divider, Row, Typography } from 'antd'
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons';
 import useHideMenu from '../hooks/useHideMenu';
@@ -65,10 +64,6 @@ const EscritorioPage = () => {
             </Row>
         </>
     )
-}
-
-EscritorioPage.propTypes = {
-
 }
 
 export default EscritorioPage

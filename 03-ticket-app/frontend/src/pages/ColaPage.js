@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Button, Col, Row, Typography, List, Card, Tag, Divider } from 'antd'
+import { Col, Row, Typography, List, Card, Tag, Divider } from 'antd'
 import useHideMenu from '../hooks/useHideMenu';
 import { SocketContext } from '../context/SocketContext';
+import { getUltimosTickets } from '../helpers/getUltimos';
 
 
 const {Title, Text } = Typography;
 
-
+/* 
 const data = [{
     ticketNo: 33,
     escritorio: 3,
@@ -43,7 +43,7 @@ const data = [{
     escritorio: 5,
     agente: 'Carlos Castro'
 },
-];
+]; */
 
 const ColaPage = props => {
 
@@ -59,6 +59,13 @@ const ColaPage = props => {
         })
         return () => {socket.off('ultimos13')}
     }, [socket])
+
+    useEffect(() => {
+
+        getUltimosTickets().then(setUltimos13);
+
+        return () => {}
+    }, [])
     return (
         <>
             <Title level={1}>Serving the client</Title>
@@ -95,10 +102,6 @@ const ColaPage = props => {
             </Row>
         </>
     )
-}
-
-ColaPage.propTypes = {
-
 }
 
 export default ColaPage

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Col, Row, Typography } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons';
 import useHideMenu from '../hooks/useHideMenu';
@@ -43,8 +42,5 @@ const CrearTicketPage = () => {
     )
 }
 
-CrearTicketPage.propTypes = {
-
-}
 
 export default CrearTicketPage
