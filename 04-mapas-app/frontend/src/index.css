@@ -1,0 +1,28 @@
+.mapContainerClass{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+}
+
+.infoCoords{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: aliceblue;
+    border-radius: 20px;
+    padding: 5px 10px;
+    position: fixed;
+    bottom: 40px;
+    left: 20px;
+    z-index: 99;
+}
+
+.btnHome{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 99;
+    background-color: aqua;
+    border-radius: 100%;
+    cursor: pointer;
+}
