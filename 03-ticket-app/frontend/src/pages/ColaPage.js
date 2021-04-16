@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Col, Row, Typography, List, Card, Tag, Divider } from 'antd'
 import useHideMenu from '../hooks/useHideMenu';
+import { SocketContext } from '../context/SocketContext';
 
 
 const {Title, Text } = Typography;
@@ -45,20 +46,32 @@ const data = [{
 ];
 
 const ColaPage = props => {
+
     useHideMenu(true);
+
+    const {socket} = useContext(SocketContext);
+    const [ultimos13, setUltimos13] = useState([]);
+
+    useEffect(() => {
+        socket.on('ultimos13', (data)=> {
+            console.log(data)
+            setUltimos13(data)
+        })
+        return () => {socket.off('ultimos13')}
+    }, [socket])
     return (
         <>
             <Title level={1}>Serving the client</Title>
             <Row>
                 <Col span={12}>
-                    <List dataSource={data.slice(0,3)}
+                    <List dataSource={ultimos13.slice(0,3)}
                         renderItem={ item => (
                             <List.Item>
                                 <Card style={{width:300, marginTop: 16}} actions={[
                                 <Tag color="volcano">{item.agente}</Tag>,
                                 <Tag color="magenta">Descktop: {item.escritorio}</Tag>
                                 ]}>
-                                    <Title>No. {item.ticketNo}</Title>
+                                    <Title>No. {item.numero}</Title>
                                 </Card>
                             </List.Item>
                         )}
@@ -66,12 +79,12 @@ const ColaPage = props => {
                 </Col>
                 <Col span={12}>
                     <Divider>Record</Divider>
-                    <List dataSource={data.slice(3)} renderItem={item => (
+                    <List dataSource={ultimos13.slice(3)} renderItem={item => (
                         <List.Item>
-                            <List.Item.Meta title={`Ticket No. ${item.ticketNo}`} description={
+                            <List.Item.Meta title={`Ticket No. ${item.numero}`} description={
                                 <>
                                     <Text type="secondary">On descktop </Text>
-                                    <Tag color="magenta">{item.ticketNo}</Tag>
+                                    <Tag color="magenta">{item.escritorio}</Tag>
                                     <Text type="secondary">Agent </Text>
                                     <Tag color="volcano">{item.agente}</Tag>
                                 </>

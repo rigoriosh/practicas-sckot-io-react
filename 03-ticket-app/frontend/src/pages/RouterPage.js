@@ -43,11 +43,11 @@ const RouterPage = () => {
                         style={{ margin: '24px 16px', padding: 24, minHeight: 280, }}
                     >
                         <Switch>
-                            <Route path="/ingresar" component={IngresarPage}/>
                             <Route path="/cola" component={ColaPage}/>
                             <Route path="/crearticket" component={CrearTicketPage}/>
                             <Route path="/escritorio" component={EscritorioPage}/>
-                            <Redirect to="/ingresar"/>
+                            <Route path="/" component={IngresarPage}/>
+                            <Redirect to="/"/>
                         </Switch>
                     </Content>
                 </Layout>
