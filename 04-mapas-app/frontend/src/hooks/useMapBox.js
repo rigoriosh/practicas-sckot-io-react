@@ -19,32 +19,36 @@ export const useMapBox = ({puntoInicial}) => {
     const nuevoMarcador = useRef( new Subject());
 
 
-    //const marcadoresRef = useRef(); // referencia a los marcadores
-    const [marcadores, setMarcadores] = useState([])
+    const marcadoresRef = useRef({}); // referencia a los marcadores
+    //const [marcadores, setMarcadores] = useState([])
     
     const [coords, setCoords] = useState(puntoInicial);
 
     // función para agregar marcadores
     const agregarMarcadores = useCallback((even) => {
             
-            const {  lng, lat } = even.lngLat;
+            const { id, lng, lat } = even.lngLat || even;
             const marker = new mapboxgl.Marker()           
-            marker.id = v4(); // TODO: verificar si el marcador ya tienen un id
+            marker.id = id ?? v4(); // TODO: verificar si el marcador ya tienen un id
             
             marker
                 .setLngLat([lng, lat])
                 .addTo(mapa.current)
                 .setDraggable(true);    
             
-            marcadores.push({id_Marker: marker.id, marker});           
-            setMarcadores(marcadores)
+            //marcadores.push({id_Marker: marker.id, marker});           
+            //setMarcadores(marcadores)
+            marcadoresRef.current[marker.id] = marker;
 
-            // TODO: si el marcador tiene id no emitir
-            nuevoMarcador.current.next({
-                id: marker.id,
-                lng,
-                lat
-            })
+            // TODO: si el marcador tiene id no emitir para que no genere eventos nuevos por cada
+            // marcador
+            if (!id) {
+                nuevoMarcador.current.next({
+                    id: marker.id,
+                    lng,
+                    lat
+                })
+            }
 
             //Escuchar movimiento del marcador
             marker.on('drag', ({target})=>{
@@ -56,7 +60,7 @@ export const useMapBox = ({puntoInicial}) => {
                 movimientoMarcador.current.next({id, lng, lat});
             })
         },
-        [marcadores],
+        [],
     )
 
     useEffect(() => {
@@ -80,27 +84,43 @@ export const useMapBox = ({puntoInicial}) => {
             });
         })
 
+        
+        
+        return () => {
+            // clean del effect se ejecuta cuadno se cierra el componente
+            //console.log(mapa)
+            mapa.current?.off('move')
+        }
+    }, [agregarMarcadores, puntoInicial.lat, puntoInicial.lng, puntoInicial.zoom]);
+
+    useEffect(() => {
         // agregar marcadores cuando hago click
-        map?.on('click', (even)=>{
+        mapa.current?.on('click', (even)=>{
             
             agregarMarcadores(even)
             
         })
+        return () => {}
+    }, [agregarMarcadores])
+
+    /* funtion to update marker position */
+    const updateMarquerPosition = useCallback(({id, lng, lat}) => {
         
-        return () => {
-            // clean del effect se ejecuta cuadno se cierra el componente
-            console.log(mapa)
-            mapa.current?.off('move')
-        }
-    }, [agregarMarcadores, marcadores, puntoInicial.lat, puntoInicial.lng, puntoInicial.zoom])
+        marcadoresRef.current[id].setLngLat([lng, lat]);
+        //console.log(marcadores);
+        //const newMarcadores = marcadores.filter(m => m.id_Marker !== marcador.id)
+       // console.log({newMarcadores});
+        //setMarcadores(newMarcadores)
+    }, []);
 
     
     return {
         coords,
         mapaDiv,
         mapa,
-        marcadores,
+        marcadoresRef,
         agregarMarcadores,
+        updateMarquerPosition,
         nuevoMarcador$: nuevoMarcador.current,
         movimientoMarcador$: movimientoMarcador.current
     }
