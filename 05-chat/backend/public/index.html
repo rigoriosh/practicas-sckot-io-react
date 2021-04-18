@@ -10,59 +10,7 @@
 <body class="container">
     <h1 class="mt-5">Acceso denegado</h1>
     <hr>
-    <!-- 
-    <form id="miFormulario">
-        <div class="row">
-            <div class="col-8">
-                <input type="text" name="" id="txtMensaje" placeholder="Ingresa un mensaje" class="form-control">
-            </div>
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
-        </div>
-    </form>
-    <div class="row mt-2">
-        <div class="col">
-            <ul id="misMensajes">                
-            </ul>
-        </div>
-    </div>
- -->
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-    <script>
-        //const socketCliente = io('https://server-socket-io-rigo.herokuapp.com/');
-        const socketCliente = io('http://localhost:8081');
-
-        socketCliente.on('connect', ()=>{console.log('socket conectado')})
-        /* 
-            const miFormulario = document.querySelector('#miFormulario');
-            const misMensajes = document.querySelector('#misMensajes');
-            const txtMensaje = document.querySelector('#txtMensaje');
-            
-
-            socketCliente.on('mensaje-prueba', (payload) => {
-                console.log('Mensaje desde el servidor =>', payload)
-            })
-            socketCliente.on('msg-from-server', (data)=>{
-                misMensajes.innerHTML += `<li>${data.msg}</li>`
-            })
-
-
-            setTimeout(() => {
-                const payload = {msg: 'hola probando'}
-                socketCliente.emit('msg-test', payload)
-            }, 2000);
-            //////////////////////////////
-            miFormulario.addEventListener('submit', (event)=>{
-                event.preventDefault();
-
-                const msg = txtMensaje.value;
-                socketCliente.emit('msg-from-client', {msg})
-            })
-    */
-    </script>
 
 
 </body>
