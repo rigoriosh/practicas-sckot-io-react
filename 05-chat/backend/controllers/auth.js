@@ -37,7 +37,7 @@ const loginUsuario = async(req, res = response) => {
 const crearUsuario = async(req, res = response) => {    
     console.log('crearUsuario')
     const {nombre, email, password} = req.body
-    
+    //console.log(req.body)
     try {
         /* verificar si el email no existe en la db */
         const existeEmail = await UsuarioModels.findOne({email});
