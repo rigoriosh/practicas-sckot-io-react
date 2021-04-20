@@ -2,18 +2,18 @@ import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
 } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import ChatPage from "../pages/ChatPage";
 import { AuthRouter } from "./AuthRouter";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 export const AppRouter = () => {
 
     const {auth, verificarToken} = useContext(AuthContext);
-    console.log(auth);
-    
+    //console.log(auth);
+
     useEffect(() => {
         verificarToken();
         return () => {}
@@ -28,9 +28,12 @@ export const AppRouter = () => {
         <Router>
             <div>                
                 <Switch>
-                    <Route  path="/auth" component={AuthRouter}/>
+                    <PublicRoute isUserLoggedIn={auth.logged} path={'/auth'} component={AuthRouter}/>
+                    <PrivateRoute isUserLoggedIn={auth.logged} path={'/'} component={ChatPage}/>
+
+                    {/* <Route  path="/auth" component={AuthRouter}/>
                     <Route  exact path="/" component={ChatPage}/>
-                    <Redirect to="/" />
+                    <Redirect to="/" /> */}
                 </Switch>
             </div>
         </Router>

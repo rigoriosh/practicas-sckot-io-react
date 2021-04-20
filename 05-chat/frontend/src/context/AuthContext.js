@@ -32,6 +32,7 @@ export const AuthContextProvider = ({children}) => {
                 logged: true,
                 checking: false
             });
+            localStorage.setItem('usuario', JSON.stringify(resp.usuario));
             console.log('Autenticado')
         }
         return resp.ok;
@@ -53,6 +54,7 @@ export const AuthContextProvider = ({children}) => {
                     checking: false
                 });
                 console.log('Registrado')
+                localStorage.setItem('usuario', JSON.stringify(resp.user));
             }
             return resp;
         } catch (error) {
@@ -80,10 +82,10 @@ export const AuthContextProvider = ({children}) => {
 
     const logout = () => {
         localStorage.clear();
-        setAuth(initialState);
+        setAuth({...initialState, checking: false});
     }
     return (
-        <AuthContext.Provider value ={{login, register, verificarToken, logout, auth}}>
+        <AuthContext.Provider value ={{login, register, verificarToken, logout, setAuth, auth}}>
             {children}
         </AuthContext.Provider>
     )

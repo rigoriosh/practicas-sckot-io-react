@@ -1,6 +1,5 @@
 import React from "react";
 import ChatSelect from "../components/chat/ChatSelect";
-import ChatsView from "../components/chat/ChatsView";
 import InboxPeople from "../components/chat/InboxPeople";
 //import PropTypes from 'prop-types'
 import '../css/chat.css'
