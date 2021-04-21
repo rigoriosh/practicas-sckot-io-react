@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChatSelect from "../components/chat/ChatSelect";
+import ChatsView from "../components/chat/ChatsView";
 import InboxPeople from "../components/chat/InboxPeople";
+import { ChatContext } from "../context/chat/ChatContext";
 //import PropTypes from 'prop-types'
 import '../css/chat.css'
 
 const ChatPage = () => {
+  const {chatState} = useContext(ChatContext);
   return (
     <section>
 
@@ -16,8 +19,13 @@ const ChatPage = () => {
           {/* <!-- Inbox people Fin --> */}
 
           {/* <!-- Chat inicio --> */}
-          <ChatSelect />
-          {/* <ChatsView/> */}
+          {
+            chatState.chatActivo 
+            ? <ChatsView />
+            : <ChatSelect />
+          }
+          
+          {/*  */}
           {/* <!-- Chat Fin --> */}
 
         </div>

@@ -1,3 +1,4 @@
+const mensajeModelo = require("../models/mensajeModelo");
 const usuarioModel = require("../models/usuarioModel")
 
 const usuarioConectado = async(uid) => {
@@ -14,9 +15,28 @@ const disconnectUser = async(uid) => {
     return usuario; // devuelvo añ front el usuario
 }
 
+const getUsuarios = async() => {
+    const usuarios = await usuarioModel.find().sort('-online');
+    return usuarios;
+}
+
+const grabarMensaje = async(payload) => {
+
+    try {
+        const mensaje = new mensajeModelo(payload);
+        await mensaje.save();
+        return mensaje;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 
 
 module.exports = {
     usuarioConectado,
-    disconnectUser
+    disconnectUser,
+    getUsuarios,
+    grabarMensaje
 }

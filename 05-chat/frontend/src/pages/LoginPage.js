@@ -83,7 +83,7 @@ const LoginPage = () => {
         </div>
 
         <div className="container-login100-form-btn m-t-17">
-          <button disabled={todoOK()} className="login100-form-btn">Ingresar</button>
+          <button  className="login100-form-btn">Ingresar</button>
         </div>
       </form>
     </section>
