@@ -1,5 +1,11 @@
 import { types } from "../../types/types";
 
+/* const initialState = {
+    uid:'',
+    chatActivo: null, // UID del usuario al que se quiere enviar mensajes
+    usuarios: [], // todos los users de la DB
+    mensajes: [] // el chat seleccionado
+} */
 export const chatReducer = (state, action) => {
     switch (action.type) {
         case types.usuariosCargados:
@@ -20,6 +26,17 @@ export const chatReducer = (state, action) => {
             }else{
                 return state
             }
+        case types.cargarMensajes:
+            return { ...state, mensajes: action.payload}
+        
+        case types.limpiarMensajes:
+            return {
+                uid:'',
+                chatActivo: null, // UID del usuario al que se quiere enviar mensajes
+                usuarios: [], // todos los users de la DB
+                mensajes: []
+            }
+
 
         default:
             return state;

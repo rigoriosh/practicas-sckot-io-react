@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { createContext } from "react";
 import { fetchSinToken, fetchWithToken } from '../helpers/fetch';
+import { types } from '../types/types';
+import { ChatContext } from './chat/ChatContext';
 
 export const AuthContext = createContext();
 
@@ -18,10 +20,11 @@ const initialState = {
 export const AuthContextProvider = ({children}) => {
 
     const [auth, setAuth] = useState(initialState);
+    const {dispatch} = useContext(ChatContext);
 
     const login = async(email, password) =>{
         const resp = await fetchSinToken('login', {email, password}, 'POST');
-        console.log(resp)
+        //console.log(resp)
         if(resp.ok){
             localStorage.setItem('token', resp.token);
             setAuth({
@@ -33,7 +36,7 @@ export const AuthContextProvider = ({children}) => {
                 checking: false
             });
             localStorage.setItem('usuario', JSON.stringify(resp.usuario));
-            console.log('Autenticado')
+            //console.log('Autenticado')
         }
         return resp.ok;
     }
@@ -42,7 +45,7 @@ export const AuthContextProvider = ({children}) => {
         //console.log(nombre, email, password)
         try {
             const resp = await fetchSinToken('login/new', {nombre, email, password}, 'POST');
-            console.log(resp)
+            //console.log(resp)
             if(resp.ok){
                 localStorage.setItem('token', resp.token);
                 setAuth({
@@ -53,12 +56,12 @@ export const AuthContextProvider = ({children}) => {
                     logged: true,
                     checking: false
                 });
-                console.log('Registrado')
+                //console.log('Registrado')
                 localStorage.setItem('usuario', JSON.stringify(resp.user));
             }
             return resp;
         } catch (error) {
-            console.error(error);
+            //console.error(error);
         }
     }
 
@@ -72,17 +75,19 @@ export const AuthContextProvider = ({children}) => {
             const resp = await fetchWithToken('login/renew');
             if (resp.ok) {
                 setAuth({...auth, checking:false, logged: true});
-                console.log('autenticado')
+                //console.log('autenticado')
                 return true
             }else{
                 setAuth({...auth, checking:false, logged: false});
                 return false
             }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         },[]);
 
     const logout = () => {
         localStorage.clear();
         setAuth({...initialState, checking: false});
+        dispatch({type: types.limpiarMensajes});
     }
     return (
         <AuthContext.Provider value ={{login, register, verificarToken, logout, setAuth, auth}}>

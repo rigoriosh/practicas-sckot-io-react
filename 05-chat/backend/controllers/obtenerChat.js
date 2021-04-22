@@ -10,7 +10,7 @@ const getMensajes = async(req = request, res = response) => {
         
         const {uid, name} = req.payloadJWT;   
         const mensajesDe = req.params.de
-        /* console.log({mensajesDe})
+       /*  console.log({mensajesDe})
         console.log({uid}) */
         // Obtener el usuario por ID
         const usuario = await UsuarioModel.findById(uid);
@@ -29,9 +29,9 @@ const getMensajes = async(req = request, res = response) => {
                 }
             ]
         })
-        .sort({createAt: 'desc'}) // los ordena de forma ascendente
+        .sort({createAt: 'asc'}) // los ordena de forma ascendente
         .limit(30); // y trae maximo 30 registros
-    
+        //console.log({ultimos30Mensajes})    
         res.status(200).json({
             ok: true,
             mensaje: 'hi',

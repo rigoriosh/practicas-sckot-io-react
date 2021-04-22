@@ -9,7 +9,7 @@ const SideBar = () => {
   const {chatState} = useContext(ChatContext);
   const {usuarios = []} = chatState;
   const {auth} = useContext(AuthContext);
-  console.log(usuarios)
+  //console.log(usuarios)
   return (
     <>
       <div className="inbox_chat">

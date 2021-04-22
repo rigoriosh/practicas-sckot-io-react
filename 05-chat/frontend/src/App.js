@@ -13,13 +13,13 @@ function App() {
   return (
     
       <header>
-          <AuthContextProvider>
             <ChatContextProvider>
-              <SocketProvider>
-                  <AppRouter />
-              </SocketProvider>
+              <AuthContextProvider>
+                <SocketProvider>
+                    <AppRouter />
+                </SocketProvider>
+              </AuthContextProvider>
             </ChatContextProvider>
-          </AuthContextProvider>
       </header>
    
   );

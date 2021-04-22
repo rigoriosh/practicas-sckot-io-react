@@ -15,7 +15,7 @@ const LoginPage = () => {
     if (emailLS) setForm((form) => ({
       ...form, email: emailLS
     }));
-    return () => {console.log('limpiar')}
+    return () => {/* console.log('limpiar') */}
   }, [])
 
   const todoOK = () => {
@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const submitForm = async(e) => {
     e.preventDefault();
-    console.log(form)
+    //console.log(form)
     form.rememberme ? localStorage.setItem('email', form.email) : localStorage.removeItem('email');
 
     //TODO: llamar backend
@@ -83,7 +83,7 @@ const LoginPage = () => {
         </div>
 
         <div className="container-login100-form-btn m-t-17">
-          <button  className="login100-form-btn">Ingresar</button>
+          <button disabled={todoOK()} className="login100-form-btn">Ingresar</button>
         </div>
       </form>
     </section>

@@ -27,7 +27,7 @@ const grabarMensaje = async(payload) => {
         await mensaje.save();
         return mensaje;
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         return false;
     }
 }

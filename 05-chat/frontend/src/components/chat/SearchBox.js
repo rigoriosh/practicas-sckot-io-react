@@ -8,7 +8,7 @@ const SearchBox = () => {
     
     useEffect(() => {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
-        console.log(usuario)
+        //console.log(usuario)
         if (usuario && auth.name === null) {
             setAuth({...auth, name: usuario.nombre, uid: usuario.uid})
         }

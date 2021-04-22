@@ -10,8 +10,8 @@ const useSocket = (serverPath) => {
   //const socket = useMemo(() => io.connect(serverPath, { transports: ['websocket'] }), [serverPath]);
   const conectarSocket = useCallback(() => {
 
-    const token = localStorage.getItem('token');
-    console.log(token)
+    //const token = localStorage.getItem('token');
+    //console.log(token)
     const socketTemp = io.connect(serverPath, {
       transports: ['websocket'],
       autoConnect: true,
@@ -25,17 +25,17 @@ const useSocket = (serverPath) => {
   }, [serverPath])
 
   const desconectarSocket = useCallback(() => {
-    console.log('disconnect socket')
+    //console.log('disconnect socket')
     socket?.disconnect();
   }, [socket])
 
   useEffect(() => {
-    console.log(333)
+    //console.log(333)
     setOnline(socket?.connected);
   }, [socket?.connected])
 
   useEffect(() => {
-    console.log(2222)
+    //console.log(2222)
     socket?.on('connect', () => {
       setOnline(true);
     })
@@ -43,9 +43,9 @@ const useSocket = (serverPath) => {
   }, [socket])
 
   useEffect(() => {
-    console.log(1111)
+    //console.log(1111)
     socket?.on('disconnect', () => {
-      console.log('disconnect socket')
+      //console.log('disconnect socket')
       setOnline(false);
     })
   }, [socket])

@@ -1,6 +1,6 @@
 
 const errorAdmin = (error, res) => {
-    console.log({error})
+    //console.log({error})
         res.status(500).json({
             ok: false,
             msg: 'Comuniquese con el administrador'

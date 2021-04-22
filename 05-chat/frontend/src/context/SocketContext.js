@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect } from "react";
+import { scrollToBottomAnimated } from "../helpers/scrollToBottom";
 import useSocket from "../hooks/useSocket";
 import { types } from "../types/types";
 import { AuthContext } from "./AuthContext";
@@ -15,7 +16,7 @@ export const SocketProvider = ({children}) => {
     const {dispatch} = useContext(ChatContext);
 
     useEffect(() => {
-        console.log('conectarSocket')
+        //console.log('conectarSocket')
         if (auth.logged) {
             conectarSocket();
         }
@@ -23,7 +24,7 @@ export const SocketProvider = ({children}) => {
     }, [auth.logged, conectarSocket])
 
     useEffect(() => {
-        console.log('disconnect socket')
+        //console.log('disconnect socket')
         if (!auth.logged) {
             desconectarSocket();
         }
@@ -32,25 +33,27 @@ export const SocketProvider = ({children}) => {
 
     useEffect(() => {//escuchar los cambios en los usuarios conectados ( si estan on o off line)
         socket?.on('lista-usuarios', (usuarios)=>{
-            console.log(usuarios)
+            //console.log(usuarios)
             dispatch({
                 type: types.usuariosCargados,
                 payload: usuarios
             })
         });
-        return () => {console.log(4545)}
+        return () => {/* console.log(4545) */}
     }, [dispatch, socket])
 
     useEffect(() => {// capura la llegada de un mensaje desde un amigo
 
         socket?.on('mensaje-personal', (mensaje)=>{
-            console.log(mensaje)
+            //console.log(mensaje)
             dispatch({
                 type: types.nuevoMensaje,
                 payload: mensaje
-            })
+            });
+            // TODO: mover el scroll al final
+            scrollToBottomAnimated('mensajes');
         })
-        return () => {console.log('mensaje-personal')}
+        return () => {/* console.log('mensaje-personal') */}
     }, [dispatch, socket])
 
     return (

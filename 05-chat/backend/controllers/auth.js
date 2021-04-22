@@ -5,7 +5,7 @@ const { errorAdmin, errorNotEmail, errorExisteEmail, wrongPassword } = require('
 const { generarJWT } = require('../helpers/jwt');
 
 const loginUsuario = async(req, res = response) => {
-    console.log('loginUsuario')
+    //console.log('loginUsuario')
     const {email, password} = req.body
     try {
         /* verificar si el email no existe en la db */
@@ -35,7 +35,7 @@ const loginUsuario = async(req, res = response) => {
 }
 
 const crearUsuario = async(req, res = response) => {    
-    console.log('crearUsuario')
+    //console.log('crearUsuario')
     const {nombre, email, password} = req.body
     //console.log(req.body)
     try {
@@ -68,7 +68,7 @@ const crearUsuario = async(req, res = response) => {
 }
 
 const revalidarToken = async(req, res = response) => {
-    console.log('revalidarToken')
+    //console.log('revalidarToken')
     const {uid, name} = req.payloadJWT;   
     /* generar nuevo token */
     const token = await generarJWT(uid, name);

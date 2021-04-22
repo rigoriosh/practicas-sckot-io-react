@@ -15,12 +15,12 @@ class Sockets{
         // on connection
         this.io.on('connection', async(socketCliente) => { 
 
-            console.log('Nuevo cliente socket conectado')
+            //console.log('Nuevo cliente socket conectado')
             const token = socketCliente.handshake.query['x-token'];
             const [valido , uid] = comprobarJWT(token);
 
             if (!valido) {
-                console.log('Socket no identificado')
+                //console.log('Socket no identificado')
                 return socketCliente.disconnect();
             }
 
@@ -31,7 +31,7 @@ class Sockets{
             //crear una sala y agrego el usuario a esa sala
             socketCliente.join(uid)
 
-            console.log('cliente conectado', uid)
+            //console.log('cliente conectado', uid)
             // TODO: Validar JWT
             // Si el token no es valido, desconectar
 
@@ -56,7 +56,7 @@ class Sockets{
             // TODO: Disconnect
             // Marcar en la DB que el usuario se desconecto
             socketCliente.on('disconnect', async()=>{
-                console.log('Cliente desconectado');
+                //console.log('Cliente desconectado');
 
                 await disconnectUser(uid)
                 this.io.emit('lista-usuarios', await getUsuarios())
