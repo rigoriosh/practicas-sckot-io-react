@@ -1,1 +1,1 @@
-# Sockets io with React js practices
+# Web Sockets io with React js practices
